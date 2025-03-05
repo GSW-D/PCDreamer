@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="PCDreamer: Point Cloud Completion Through Multi-view Diffusion Priors>
+    <meta name="keywords" content="Point Cloud Completion, Foundation models, Dataset">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PCDreamer: Point Cloud Completion Through Multi-view Diffusion Priors</title>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+    rel="stylesheet">
+
+    <link rel="stylesheet" href="./resources/css/bulma.min.css">
+    <link rel="stylesheet" href="./resources/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./resources/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./resources/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./resources/css/index.css">
+    <link rel="icon" href="./resources/imgs/icon1.png">
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./resources/js/fontawesome.all.min.js"></script>
+    <script src="./resources/js/bulma-carousel.min.js"></script>
+    <script src="./resources/js/bulma-slider.min.js"></script>
+    <script src="./resources/js/index.js"></script>
+</head>
+
+<body>
+
+    <!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+            <a class="navbar-item" href="https://keunhong.com">
+            <span class="icon">
+                <i class="fas fa-home"></i>
+            </span>
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More Research
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="https://hypernerf.github.io">
+                  HyperNeRF
+                </a>
+                <a class="navbar-item" href="https://nerfies.github.io">
+                  Nerfies
+                </a>
+                <a class="navbar-item" href="https://latentfusion.github.io">
+                  LatentFusion
+                </a>
+                <a class="navbar-item" href="https://photoshape.github.io">
+                  PhotoShape
+                </a>
+              </div>
+            </div>
+          </div>
+      
+        </div>
+    </nav> -->
+
+    <!-- Title, authors -->
+    <section class="hero">
+        <div class="hero-body">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered">
+              <div class="column has-text-centered">
+                <h1 class="title is-1 publication-title">PCDreamer: Point Cloud Completion Through Multi-view Diffusion Priors</h1>
+                <h3 class="title is-4" style="color: red">CVPR 2025</h3>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block">
+                    <a href="https://gsw-d.github.io/gswei.github.io/" target="_blank">Guangshun Wei</a><sup>1</sup>,</span>
+                  <span class="author-block">
+                    Yuan Feng<sup>1</sup>,</span>
+                  <span class="author-block">
+                    Long Ma<sup>1</sup>,</span>
+                  </span>
+                  <span class="author-block">
+                    Chen Wang<sup>1</sup>,</span>
+                  </span>
+                  <span class="author-block">
+                    Yuanfeng Zhou<sup>1</sup>,</span>
+                  </span>
+                  <span class="author-block">
+                    <a href="https://enigma-li.github.io/" target="_blank">Changjian Li</a><sup>2</sup>
+                  </span>
+                </div>
+      
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block"><sup>1</sup>Shandong University,</span>
+                  <span class="author-block"><sup>2</sup>University of Edinburgh</span>
+                  <!--span class="author-block"><sup>3</sup>Inria, Université Côte d'Azur,</span> <br>
+                  <span class="author-block"><sup>4</sup>University College London,</span>
+                  <span class="author-block"><sup>5</sup>Adobe Research</span>
+                  <span class="author-block"><sup>6</sup>Delft University of Technology</span -->
+                </div>
+      
+                <div class="column has-text-centered">
+                  <div class="publication-links">
+                    <!-- PDF Link. -->
+                    <span class="link-block">
+                      <a href="https://arxiv.org/pdf/2411.19036"
+                         class="external-link button is-normal is-rounded is-dark" target="_blank">
+                        <span class="icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+                    <span class="link-block">
+                      <a href="https://arxiv.org/abs/2411.19036"
+                         class="external-link button is-normal is-rounded is-dark" target="_blank">
+                        <span class="icon">
+                            <i class="ai ai-arxiv"></i>
+                        </span>
+                        <span>arXiv</span>
+                      </a>
+                    </span>
+                    <!-- Video Link. -->
+                    <!--span class="link-block">
+                      <a href="https://www.youtube.com/watch?v=83Fnvj2H0_g"
+                         class="external-link button is-normal is-rounded is-dark" target="_blank">
+                        <span class="icon">
+                            <i class="fab fa-youtube"></i>
+                        </span>
+                        <span>Video</span>
+                      </a>
+                    </span -->
+                    <!-- Code Link. -->
+                    <span class="link-block">
+                      <a href="https://arxiv.org/pdf/2411.19036" target="_blank"
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>Code</span>
+                        </a>
+                    </span>
+                    <!-- Dataset Link. -->
+                    <!--span class="link-block">
+                      <a href="https://drive.google.com/file/d/1NfqRnPEafU0wSYYCJejLH5tpepTGZpEO/view?usp=sharing" target="_blank"
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="fas fa-download"></i>
+                        </span>
+                        <span>Dataset</span>
+                        </a>
+                    </span -->
+                    <!-- Sippl. Link. -->
+                    <!-- <span class="link-block">
+                      <a href=""
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="fas fa-folder"></i>
+                        </span>
+                        <span>Suppl.</span>
+                      </a>
+                    </span> -->
+
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+    <!-- Teaser -->
+    <section class="hero teaser">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+            <img src="./resources/imgs/teaser1.jpg" class="teaser" alt="Teaser Image"/>
+            <h3 class="subtitle has-text-justified">
+                Given a partial point cloud input (a) with (b) as a novel view for visualization purposes, the goal of point cloud completion is to
+                produce a complete point cloud retaining both the global and local geometric features. Existing methods (c, d) fail to neither recover local
+                thin structures (e.g., the lamp holder) nor capture the global symmetric parts (e.g., the back supporter of the chair), while our approach (e)
+                faithfully produces the desired shape compared with the ground truth (f).
+            </h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Results -->
+    <!--section class="hero is-light is-small">
+        <div class="hero-body">
+          <div class="container">
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item item-bike">
+                <video poster="" id="bike" autoplay controls muted loop playsinline height="100%">
+                  <source src="./resources/videos/bike.mp4"
+                          type="video/mp4">
+                </video>
+              </div>
+              <div class="item item-frog">
+                <video poster="" id="frog" autoplay controls muted loop playsinline height="100%">
+                  <source src="./resources/videos/frog.mp4"
+                          type="video/mp4">
+                </video>
+              </div>
+              <div class="item item-ship">
+                <video poster="" id="ship" autoplay controls muted loop playsinline height="100%">
+                  <source src="./resources/videos/ship.mp4"
+                          type="video/mp4">
+                </video>
+              </div>
+              <div class="item item-snowman">
+                <video poster="" id="snowman" autoplay controls muted loop playsinline height="100%">
+                  <source src="./resources/videos/snowman.mp4"
+                          type="video/mp4">
+                </video>
+              </div>
+              <div class="item item-train">
+                <video poster="" id="train" autoplay controls muted loop playsinline height="100%">
+                  <source src="./resources/videos/train.mp4"
+                          type="video/mp4">
+                </video>
+              </div>
+              <div class="item item-tux">
+                <video poster="" id="tux" autoplay controls muted loop playsinline height="100%">
+                  <source src="./resources/videos/tux.mp4"
+                          type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section -->
+
+    <!-- Abstract and Paper Video -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <!-- Abstract. -->
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            This paper presents PCDreamer, a novel method for point
+                            cloud completion. Traditional methods typically extract
+                            features from partial point clouds to predict missing regions,
+                            but the large solution space often leads to unsatisfactory results.
+                            More recent approaches have started to use images as extra guidance,
+                            effectively improving performance,but obtaining paired data of images
+                            and partial point clouds is challenging in practice. To overcome these
+                            limitations, we harness the relatively view-consistent multi-view
+                            diffusion priors within large models, to generate novel views of
+                            the desired shape. The resulting image set encodes both
+                            global and local shape cues, which is especially beneficial
+                            for shape completion. To fully exploit the priors, we have
+                            designed a shape fusion module for producing an initial
+                            complete shape from multi-modality input (i.e., images and
+                            point clouds), and a follow-up shape consolidation module
+                            to obtain the final complete shape by discarding unreliable
+                            points introduced by the inconsistency from diffusion priors.
+                            Extensive experimental results demonstrate our superior performance,
+                            especially in recovering fine details.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--/ Abstract. -->
+
+            <!-- Paper video. -->
+            <!--div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                  <h2 class="title is-3">Video (Trailer)
+                  </h2>
+                  <div class="publication-video">
+                  <iframe src="https://www.youtube.com/embed/x8r9DqUIN-U?si=0uCL-f_n8rV7nL_M;showinfo=0"
+                          frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                  </div>
+              </div>
+              </--div -->
+              <!--/ Paper video. -->
+        
+            <!-- Paper video. -->
+            <!--div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                  <h2 class="title is-3">Video (Long Presentation)</h2>
+                  <div class="publication-video">
+                  <iframe src="https://www.youtube.com/embed/83Fnvj2H0_g?si=J26dhBGGhC8ES_o_;showinfo=0"
+                          frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                  </div>
+              </div>
+              </div -->
+              <!--/ Paper video. -->
+        </div>
+    </section>
+
+    <!-- Method -->
+    <section class="section">
+        <div class="container is-max-desktop">
+
+            <!-- Overview -->
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <h2 class="title is-3 has-text-centered">Method</h2>
+                    <img src="./resources/imgs/pipeline.jpg" class="" alt="Method Image"/>
+                    <div class="content has-text-justified">
+                        <p>
+                            Figure 1. <b>Overview.</b> . Overview of PCDreamer. Given an input partial point cloud,
+                            we have designed three core modules to complete it.
+                            The multi-view image generation module (Sec. 3.1) dreams out multi-view images of the input
+                            by leveraging a few large models. The priors within these models serve as the fuel for the completion.
+                            The following fusion module (Sec. 3.2) effectively fuses the original input and the inspiring MV images
+                            with the help of the attention mechanism. A final consideration module (Sec. 3.3)
+                            further reduces the inherent inconsistency introduced in large models, producing a complete, dense,
+                            and uniform point cloud with both the global and local shape features.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--div-- class="columns is-centered has-text-centered">
+
+                <!-- Segmentation. -->
+                <!--div class="column">
+                    <div class="content">
+                    <h3 class="title is-4">Image Generation and Segmentation</h3>
+                    <img src="./resources/imgs/image_processing.png" class="is-centered" alt="Processing Image"/>
+                    <div class="content has-text-justified">
+                    <p>
+                        <b>Image Processing.</b> Given shapes (left) after executing programs, we use ControlNet to convert
+                        rendered depth maps into realistic images (middle), which form a valid input
+                        for detection and segmentation models trained on photographs (right).
+                    </p>
+                    </div>
+                    </div>
+                </div-->
+                <!--/ Segmentation. -->
+            
+                <!-- Block. -->
+                <!--div class="column">
+                    <div class="content">
+                    <h3 class="title is-4">Program Parsing</h3>
+                        <img src="./resources/imgs/blocks.png" class="is-centered" alt="Program Parsing"/>
+                        <div class="content has-text-justified">
+                        <p>
+                        <b>Program parsing.</b> Irreducible blocks are basic-level geometric primitives and their direct
+                            compositions (a), 
+                            while commentable blocks are code blocks of different compositional levels that correspond to semantic
+                            comments (b). 
+                        The downward traversal of the syntax tree is used to identify irreducible blocks (c) 
+                        and the upward traversal to collect commentable blocks (d). 
+                        Exemplar masks of commentable blocks are shown in (c) and (d) rendered in red color.
+                        </p>
+                    </div>
+                    </div>
+                </div-->
+                <!--/ Block. -->
+
+                </div>
+
+        </div>
+    </section>
+    
+    <!-- Results -->
+    <section class="section">
+        <div class="container is-max-desktop">
+
+            <!-- Overview -->
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <h2 class="title is-3 has-text-centered">Visual Results (PCN Dataset)</h2>
+                    <img src="./resources/imgs/com_pcn.jpg" class="" alt="PCN Results", style="margin-bottom: 20px;"/>
+                    <div class="content has-text-justified">
+                        <p style="margin-bottom: 50px;">
+                            Figure 2.<b> Visual comparisons on the PCN dataset.</b> That second column is representative depth images selected from the multiple views.
+                        </p>
+                        <img src="./resources/imgs/pcn_supp.jpg" class="" alt="PCN Results with depth images", style="margin-bottom: 20px;"/>
+                    <div class="content has-text-justified">
+                        <p>
+                            Figure 3.<b> Visual results as well as multi-view depth images on the PCN dataset.</b> The generated multi-view depth images corresponding
+                                to the last three rows exhibit lower quality and less consistency than the first three rows.
+                        </p>
+                    <!--/div>
+                    <-h3 class="title is-4">More Supplementary Files:</h3>
+                    1) Example Abstract Syntax Tree: <a href="./resources/suppl/AST.pdf" target="_blank">AST.pdf</a> <br>
+                    2) Detailed ChatGTP Conversation: <a href="./resources/suppl/GPT-Conversation.pdf" target="_blank">GPT-Converstation.pdf</a> <br>
+                    3) More Commenting Results: <a href="./resources/suppl/Commenting-Results.pdf" target="_blank">Commenting-Results.pdf</a>
+                </div-->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Citation -->
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+          <h2 class="title">BibTeX</h2>
+          <pre><code>@misc{wei2024pcdreamerpointcloudcompletion,
+      title={PCDreamer: Point Cloud Completion Through Multi-view Diffusion Priors},
+      author={Guangshun Wei and Yuan Feng and Long Ma and Chen Wang and Yuanfeng Zhou and Changjian Li},
+      year={2024},
+      eprint={2411.19036},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2411.19036},
+}
+          </code></pre>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+          <div class="columns is-centered">
+            <div class="column is-8">
+              <div class="content">
+                <h2 class="title">Acknowlegement</h2>
+                <!--p style="font-size:120%;">
+                  We thank Algot Runeman for his <a href="http://runeman.org/3d/" target="_blank">OpenSCAD programs</a>.
+                </p-->
+                <p>
+                    We borrow the source code of this website from  <a
+                    href="https://nerfies.github.io/" target="_blank">Nerfies</a>. Last update: June 2024.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+
+</body>
+</html>
